@@ -98,7 +98,7 @@ func main() {
 					// Due a containerd log format we need to add a \n for each line writed
 					fmt.Fprintln(w, logPayload.Log)
 				} else {
-					fmt.Fprintf(w, logPayload.Log)
+					fmt.Fprint(w, logPayload.Log)
 				}
 			}
 		}
