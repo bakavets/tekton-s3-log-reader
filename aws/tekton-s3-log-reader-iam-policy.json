@@ -1,0 +1,29 @@
+{
+    "Statement": [
+        {
+            "Sid": "AllowListObjects",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::fluentbit-to-s3-bucket"
+        },
+        {
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::fluentbit-to-s3-bucket/*",
+            "Sid": "AllowGetObject"
+        },
+        {
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:kms:eu-central-1:123456789123:key/12ab123a-1a23-12a3-a1aa-0f1aaaaa12fa",
+            "Sid": "KMS"
+        }
+    ],
+    "Version": "2012-10-17"
+}
