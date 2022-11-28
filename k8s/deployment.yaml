@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-s3-log-reader
+  namespace: tekton-space
+  labels:
+    app.kubernetes.io/name: tekton-s3-log-reader
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tekton-s3-log-reader
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tekton-s3-log-reader
+    spec:
+      serviceAccountName: tekton-s3-log-reader
+      containers:
+        - name: tekton-s3-log-reader
+          image: bakavets/tekton-s3-log-reader:0.0.1
+          env:
+          - name: S3_BUCKET_NAME
+            value: fluentbit-to-s3-bucket
+          ports:
+            - name: exporter
+              containerPort: 5001
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: exporter
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: exporter

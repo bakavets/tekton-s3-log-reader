@@ -76,9 +76,22 @@ outputs: |
         s3_key_format                /$TAG[2]/$TAG[3]/$TAG[4]/%Y%m%d%H%M%S.log
         s3_key_format_tag_delimiters .
 ```
+### Docker build
+```sh
+docker build -t bakavets/tekton-s3-log-reader:0.0.1 .
+```
+
+### Deploy ```tekton-s3-log-reader``` to Kubernetes
+```sh
+kubectl create ns tekton-space
+```
+```sh
+kubectl apply -f k8s
+```
+
 ### Tekton Dashboard Configuration
 
 Add the following flag pointing to the endpoint `tekton-s3-log-reader`: 
 ```yaml
---external-logs=http://tekton-s3-log-reader.monitoring:5001/logs
+--external-logs=http://tekton-s3-log-reader.tekton-space:5001/logs
 ```
