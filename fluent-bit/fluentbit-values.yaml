@@ -63,7 +63,7 @@ config:
         Name            s3
         Alias           s3_tekton_logs
         Match           kube.tekton.*
-        bucket          fluent-bit-tekton-dashboard-log-storage
+        bucket          fluentbit-to-s3-bucket
         region          eu-central-1
         total_file_size 250M
         upload_timeout  1m
